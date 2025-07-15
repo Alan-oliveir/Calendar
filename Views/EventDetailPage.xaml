@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="Calendar.Views.EventDetailPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="Detalhes do Evento"
+             BackgroundColor="{StaticResource BackgroundColor}">
+
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20">
+            <!-- Título do Evento -->
+            <Frame BackgroundColor="{StaticResource SurfaceColor}" 
+                   CornerRadius="12" 
+                   Padding="20"
+                   HasShadow="True">
+                <StackLayout>
+                    <Label Text="Título do Evento" 
+                           FontSize="16" 
+                           FontAttributes="Bold" 
+                           TextColor="{StaticResource TextSecondaryColor}" />
+                    <Entry x:Name="TitleEntry" 
+                           Placeholder="Digite o título do evento" 
+                           FontSize="18" 
+                           TextColor="{StaticResource TextPrimaryColor}" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Data do Evento -->
+            <Frame BackgroundColor="{StaticResource SurfaceColor}" 
+                   CornerRadius="12" 
+                   Padding="20"
+                   HasShadow="True">
+                <StackLayout>
+                    <Label Text="Data do Evento" 
+                           FontSize="16" 
+                           FontAttributes="Bold" 
+                           TextColor="{StaticResource TextSecondaryColor}" />
+                    <DatePicker x:Name="EventDatePicker" 
+                                FontSize="18" 
+                                TextColor="{StaticResource TextPrimaryColor}" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Descrição -->
+            <Frame BackgroundColor="{StaticResource SurfaceColor}" 
+                   CornerRadius="12" 
+                   Padding="20"
+                   HasShadow="True">
+                <StackLayout>
+                    <Label Text="Descrição" 
+                           FontSize="16" 
+                           FontAttributes="Bold" 
+                           TextColor="{StaticResource TextSecondaryColor}" />
+                    <Editor x:Name="DescriptionEditor" 
+                            Placeholder="Digite a descrição do evento" 
+                            FontSize="16" 
+                            TextColor="{StaticResource TextPrimaryColor}"
+                            HeightRequest="120" />
+                </StackLayout>
+            </Frame>
+
+            <!-- Categoria -->
+            <Frame BackgroundColor="{StaticResource SurfaceColor}" 
+                   CornerRadius="12" 
+                   Padding="20"
+                   HasShadow="True">
+                <StackLayout>
+                    <Label Text="Categoria" 
+                           FontSize="16" 
+                           FontAttributes="Bold" 
+                           TextColor="{StaticResource TextSecondaryColor}" />
+                    <Picker x:Name="CategoryPicker" 
+                            FontSize="18" 
+                            TextColor="{StaticResource TextPrimaryColor}">
+                        <Picker.Items>
+                            <x:String>Trabalho</x:String>
+                            <x:String>Pessoal</x:String>
+                            <x:String>Saúde</x:String>
+                            <x:String>Educação</x:String>
+                            <x:String>Lazer</x:String>
+                            <x:String>Família</x:String>
+                            <x:String>Outros</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </StackLayout>
+            </Frame>
+
+            <!-- Cor do Evento -->
+            <Frame BackgroundColor="{StaticResource SurfaceColor}" 
+                   CornerRadius="12" 
+                   Padding="20"
+                   HasShadow="True">
+                <StackLayout>
+                    <Label Text="Cor do Evento" 
+                           FontSize="16" 
+                           FontAttributes="Bold" 
+                           TextColor="{StaticResource TextSecondaryColor}" />
+                    <StackLayout Orientation="Horizontal" 
+                                 HorizontalOptions="Center" 
+                                 Spacing="10">
+                        <Frame BackgroundColor="#6366f1" 
+                               WidthRequest="40" 
+                               HeightRequest="40" 
+                               CornerRadius="20" 
+                               HasShadow="False">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnColorSelected" />
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                        <Frame BackgroundColor="#ef4444" 
+                               WidthRequest="40" 
+                               HeightRequest="40" 
+                               CornerRadius="20" 
+                               HasShadow="False">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnColorSelected" />
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                        <Frame BackgroundColor="#10b981" 
+                               WidthRequest="40" 
+                               HeightRequest="40" 
+                               CornerRadius="20" 
+                               HasShadow="False">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnColorSelected" />
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                        <Frame BackgroundColor="#f59e0b" 
+                               WidthRequest="40" 
+                               HeightRequest="40" 
+                               CornerRadius="20" 
+                               HasShadow="False">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnColorSelected" />
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                        <Frame BackgroundColor="#8b5cf6" 
+                               WidthRequest="40" 
+                               HeightRequest="40" 
+                               CornerRadius="20" 
+                               HasShadow="False">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnColorSelected" />
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+
+            <!-- Botões de Ação -->
+            <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="FillAndExpand" 
+                         Spacing="10">
+                <Button Text="Cancelar" 
+                        BackgroundColor="{StaticResource TextMutedColor}" 
+                        TextColor="White" 
+                        FontSize="16" 
+                        CornerRadius="25" 
+                        Padding="20,15" 
+                        HorizontalOptions="FillAndExpand"
+                        Clicked="OnCancelClicked" />
+                        
+                <Button Text="Salvar" 
+                        BackgroundColor="{StaticResource AccentColor}" 
+                        TextColor="White" 
+                        FontSize="16" 
+                        CornerRadius="25" 
+                        Padding="20,15" 
+                        HorizontalOptions="FillAndExpand"
+                        Clicked="OnSaveClicked" />
+            </StackLayout>
+
+            <!-- Botão Deletar (apenas para edição) -->
+            <Button x:Name="DeleteButton" 
+                    Text="🗑️ Deletar Evento" 
+                    BackgroundColor="{StaticResource ErrorColor}" 
+                    TextColor="White" 
+                    FontSize="16" 
+                    CornerRadius="25" 
+                    Padding="20,15" 
+                    IsVisible="False"
+                    Clicked="OnDeleteClicked" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

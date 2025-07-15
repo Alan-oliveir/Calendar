@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Application x:Class="Calendar.App"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Calendar"
+             xmlns:converters="clr-namespace:Calendar.Converters">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- Value Converters -->
+            <converters:IntToBoolConverter x:Key="IntToBoolConverter" />
+            <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
+            <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
+
+            <!-- Global Styles -->
+            <Style TargetType="ContentPage">
+                <Setter Property="BackgroundColor" Value="#f8fafc" />
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="#1f2937" />
+                <Setter Property="FontFamily" Value="OpenSansRegular" />
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontFamily" Value="OpenSansRegular" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Padding" Value="16,12" />
+            </Style>
+
+            <!-- Color Palette -->
+            <Color x:Key="PrimaryColor">#6366f1</Color>
+            <Color x:Key="SecondaryColor">#8b5cf6</Color>
+            <Color x:Key="AccentColor">#10b981</Color>
+            <Color x:Key="ErrorColor">#ef4444</Color>
+            <Color x:Key="WarningColor">#f59e0b</Color>
+            <Color x:Key="SurfaceColor">#ffffff</Color>
+            <Color x:Key="BackgroundColor">#f8fafc</Color>
+            <Color x:Key="TextPrimaryColor">#1f2937</Color>
+            <Color x:Key="TextSecondaryColor">#6b7280</Color>
+            <Color x:Key="TextMutedColor">#9ca3af</Color>
+            <Color x:Key="BorderColor">#e5e7eb</Color>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
