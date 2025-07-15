@@ -4,26 +4,58 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewmodels="clr-namespace:Calendar.ViewModels"
-    Title="Agenda Pessoal"
-    BackgroundColor="#6366f1">
+    Title="Calendário"
+    BackgroundColor="#f8fafc">
 
     <ContentPage.Resources>
         <ResourceDictionary>
+            <!--  Cores  -->
+            <Color x:Key="PrimaryColor">#6366f1</Color>
+            <Color x:Key="SecondaryColor">#8b5cf6</Color>
+            <Color x:Key="AccentColor">#10b981</Color>
+            <Color x:Key="SurfaceColor">#ffffff</Color>
+            <Color x:Key="BackgroundColor">#f8fafc</Color>
+            <Color x:Key="TextPrimaryColor">#1f2937</Color>
+            <Color x:Key="TextSecondaryColor">#6b7280</Color>
+            <Color x:Key="TextMutedColor">#9ca3af</Color>
+            <Color x:Key="BorderColor">#e5e7eb</Color>
+            <Color x:Key="ErrorColor">#ef4444</Color>
+
+            <!--  Gradientes  -->
+            <LinearGradientBrush x:Key="HeaderGradient" StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Offset="0" Color="#667eea" />
+                <GradientStop Offset="1" Color="#764ba2" />
+            </LinearGradientBrush>
+
+            <!--  Estilos dos botões de navegação  -->
             <Style x:Key="HeaderButtonStyle" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="#8b5cf6" />
-                <Setter Property="TextColor" Value="White" />
-                <Setter Property="FontSize" Value="16" />
-                <Setter Property="Padding" Value="15,10" />
-                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Padding" Value="20,12" />
+                <Setter Property="CornerRadius" Value="25" />
+                <Setter Property="Shadow">
+                    <Setter.Value>
+                        <Shadow
+                            Brush="Black"
+                            Opacity="0.1"
+                            Radius="4"
+                            Offset="0,2" />
+                    </Setter.Value>
+                </Setter>
             </Style>
 
+            <!--  Estilos das abas  -->
             <Style x:Key="TabButtonStyle" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="TextColor" Value="White" />
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="Padding" Value="20,10" />
-                <Setter Property="CornerRadius" Value="25" />
+                <Setter Property="FontSize" Value="13" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Padding" Value="16,8" />
+                <Setter Property="CornerRadius" Value="20" />
                 <Setter Property="BorderColor" Value="White" />
+                <Setter Property="Opacity" Value="0.7" />
             </Style>
 
             <Style
@@ -31,66 +63,127 @@
                 BasedOn="{StaticResource TabButtonStyle}"
                 TargetType="Button">
                 <Setter Property="BackgroundColor" Value="White" />
-                <Setter Property="TextColor" Value="#6366f1" />
+                <Setter Property="TextColor" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="Opacity" Value="1" />
+                <Setter Property="FontAttributes" Value="Bold" />
             </Style>
 
+            <!--  Estilo dos dias do calendário  -->
             <Style x:Key="CalendarDayStyle" TargetType="Frame">
                 <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="BorderColor" Value="Transparent" />
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="HasShadow" Value="False" />
-                <Setter Property="CornerRadius" Value="8" />
-                <Setter Property="HeightRequest" Value="50" />
-                <Setter Property="WidthRequest" Value="50" />
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="HeightRequest" Value="48" />
+                <Setter Property="WidthRequest" Value="48" />
             </Style>
+
+            <!--  Estilo do botão de adicionar evento  -->
+            <Style x:Key="AddEventButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource AccentColor}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Padding" Value="0,16" />
+                <Setter Property="CornerRadius" Value="25" />
+                <Setter Property="Shadow">
+                    <Setter.Value>
+                        <Shadow
+                            Brush="{StaticResource AccentColor}"
+                            Opacity="0.3"
+                            Radius="8"
+                            Offset="0,4" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!--  Template melhorado para eventos  -->
+            <DataTemplate x:Key="EventItemTemplate">
+                <Frame
+                    Margin="0,4"
+                    Padding="16"
+                    BackgroundColor="{StaticResource SurfaceColor}"
+                    CornerRadius="12"
+                    HasShadow="True">
+                    <Frame.Shadow>
+                        <Shadow
+                            Brush="Black"
+                            Opacity="0.1"
+                            Radius="4"
+                            Offset="0,2" />
+                    </Frame.Shadow>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <!--  Indicador de cor  -->
+                        <BoxView
+                            Grid.Column="0"
+                            BackgroundColor="{Binding Color}"
+                            CornerRadius="2" />
+
+                        <!--  Conteúdo do evento  -->
+                        <StackLayout Grid.Column="1" Margin="12,0,0,0">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="16"
+                                Text="{Binding Title}"
+                                TextColor="{StaticResource TextPrimaryColor}" />
+                            <Label
+                                FontSize="14"
+                                Text="{Binding Description}"
+                                TextColor="{StaticResource TextSecondaryColor}" />
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                Text="{Binding Category}"
+                                TextColor="{StaticResource PrimaryColor}" />
+                        </StackLayout>
+
+                        <!--  Botão de deletar  -->
+                        <Button
+                            Grid.Column="2"
+                            BackgroundColor="Transparent"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CalendarViewModel}}, Path=DeleteEventCommand}"
+                            CommandParameter="{Binding .}"
+                            FontSize="18"
+                            Text="🗑️"
+                            TextColor="{StaticResource ErrorColor}" />
+                    </Grid>
+                </Frame>
+            </DataTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
 
+    <!--  Container principal  -->
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+        <!--  Conteúdo principal  -->
+        <ScrollView Padding="20,0">
+            <StackLayout Margin="0,20,0,40" Spacing="20">
+                <!--  Header do calendário  -->
+                <Frame
+                    Padding="20,16"
+                    BackgroundColor="{StaticResource SurfaceColor}"
+                    CornerRadius="20"
+                    HasShadow="True">
+                    <Frame.Shadow>
+                        <Shadow
+                            Brush="Black"
+                            Opacity="0.1"
+                            Radius="8"
+                            Offset="0,2" />
+                    </Frame.Shadow>
 
-        <!--  Header  -->
-        <StackLayout Grid.Row="0" Padding="20,40,20,20">
-            <!--  Title  -->
-            <Label
-                Margin="0,0,0,20"
-                FontAttributes="Bold"
-                FontSize="32"
-                HorizontalOptions="Center"
-                Text="✨ Agenda Pessoal"
-                TextColor="White" />
-
-            <!--  Tab Navigation  -->
-            <StackLayout
-                HorizontalOptions="Center"
-                Orientation="Horizontal"
-                Spacing="10">
-                <Button Style="{StaticResource TabButtonStyle}" Text="📅 Horários" />
-                <Button Style="{StaticResource ActiveTabButtonStyle}" Text="📅 Calendário" />
-                <Button Style="{StaticResource TabButtonStyle}" Text="✅ Tarefas" />
-                <Button Style="{StaticResource TabButtonStyle}" Text="📝 Diário" />
-            </StackLayout>
-        </StackLayout>
-
-        <!--  Calendar Content  -->
-        <Frame
-            Grid.Row="1"
-            Padding="20"
-            BackgroundColor="White"
-            CornerRadius="30"
-            HasShadow="True">
-
-            <ScrollView>
-                <StackLayout Spacing="20">
-                    <!--  Calendar Header  -->
                     <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
                         <Button
@@ -102,10 +195,10 @@
                         <Label
                             Grid.Column="1"
                             FontAttributes="Bold"
-                            FontSize="24"
+                            FontSize="20"
                             HorizontalOptions="Center"
                             Text="{Binding MonthYearText}"
-                            TextColor="#374151"
+                            TextColor="{StaticResource TextPrimaryColor}"
                             VerticalOptions="Center" />
 
                         <Button
@@ -114,221 +207,223 @@
                             Style="{StaticResource HeaderButtonStyle}"
                             Text="Próximo →" />
                     </Grid>
+                </Frame>
 
-                    <!--  Days of Week Header  -->
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                <!--  Calendário  -->
+                <Frame
+                    Padding="20"
+                    BackgroundColor="{StaticResource SurfaceColor}"
+                    CornerRadius="20"
+                    HasShadow="True">
+                    <Frame.Shadow>
+                        <Shadow
+                            Brush="Black"
+                            Opacity="0.1"
+                            Radius="8"
+                            Offset="0,2" />
+                    </Frame.Shadow>
 
-                        <Label
-                            Grid.Column="0"
-                            FontAttributes="Bold"
-                            FontSize="14"
-                            HorizontalOptions="Center"
-                            Text="Dom"
-                            TextColor="#9ca3af" />
-                        <Label
-                            Grid.Column="1"
-                            FontAttributes="Bold"
-                            FontSize="14"
-                            HorizontalOptions="Center"
-                            Text="Seg"
-                            TextColor="#9ca3af" />
-                        <Label
-                            Grid.Column="2"
-                            FontAttributes="Bold"
-                            FontSize="14"
-                            HorizontalOptions="Center"
-                            Text="Ter"
-                            TextColor="#9ca3af" />
-                        <Label
-                            Grid.Column="3"
-                            FontAttributes="Bold"
-                            FontSize="14"
-                            HorizontalOptions="Center"
-                            Text="Qua"
-                            TextColor="#9ca3af" />
-                        <Label
-                            Grid.Column="4"
-                            FontAttributes="Bold"
-                            FontSize="14"
-                            HorizontalOptions="Center"
-                            Text="Qui"
-                            TextColor="#9ca3af" />
-                        <Label
-                            Grid.Column="5"
-                            FontAttributes="Bold"
-                            FontSize="14"
-                            HorizontalOptions="Center"
-                            Text="Sex"
-                            TextColor="#9ca3af" />
-                        <Label
-                            Grid.Column="6"
-                            FontAttributes="Bold"
-                            FontSize="14"
-                            HorizontalOptions="Center"
-                            Text="Sáb"
-                            TextColor="#9ca3af" />
-                    </Grid>
+                    <StackLayout Spacing="16">
+                        <!--  Cabeçalho dos dias da semana  -->
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                    <!--  Calendar Grid  -->
-                    <CollectionView ItemsSource="{Binding CalendarDays}" SelectionMode="None">
-                        <CollectionView.ItemsLayout>
-                            <GridItemsLayout
-                                HorizontalItemSpacing="2"
-                                Orientation="Vertical"
-                                Span="7"
-                                VerticalItemSpacing="2" />
-                        </CollectionView.ItemsLayout>
+                            <Label
+                                Grid.Column="0"
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HorizontalOptions="Center"
+                                Text="Dom"
+                                TextColor="{StaticResource TextMutedColor}" />
+                            <Label
+                                Grid.Column="1"
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HorizontalOptions="Center"
+                                Text="Seg"
+                                TextColor="{StaticResource TextMutedColor}" />
+                            <Label
+                                Grid.Column="2"
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HorizontalOptions="Center"
+                                Text="Ter"
+                                TextColor="{StaticResource TextMutedColor}" />
+                            <Label
+                                Grid.Column="3"
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HorizontalOptions="Center"
+                                Text="Qua"
+                                TextColor="{StaticResource TextMutedColor}" />
+                            <Label
+                                Grid.Column="4"
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HorizontalOptions="Center"
+                                Text="Qui"
+                                TextColor="{StaticResource TextMutedColor}" />
+                            <Label
+                                Grid.Column="5"
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HorizontalOptions="Center"
+                                Text="Sex"
+                                TextColor="{StaticResource TextMutedColor}" />
+                            <Label
+                                Grid.Column="6"
+                                FontAttributes="Bold"
+                                FontSize="12"
+                                HorizontalOptions="Center"
+                                Text="Sáb"
+                                TextColor="{StaticResource TextMutedColor}" />
+                        </Grid>
 
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Frame Style="{StaticResource CalendarDayStyle}">
-                                    <Frame.Triggers>
-                                        <DataTrigger
-                                            Binding="{Binding IsSelected}"
-                                            TargetType="Frame"
-                                            Value="True">
-                                            <Setter Property="BackgroundColor" Value="#6366f1" />
-                                        </DataTrigger>
-                                        <DataTrigger
-                                            Binding="{Binding IsToday}"
-                                            TargetType="Frame"
-                                            Value="True">
-                                            <Setter Property="BorderColor" Value="#6366f1" />
-                                        </DataTrigger>
-                                    </Frame.Triggers>
+                        <!--  Grade do calendário  -->
+                        <CollectionView ItemsSource="{Binding CalendarDays}" SelectionMode="None">
+                            <CollectionView.ItemsLayout>
+                                <GridItemsLayout
+                                    HorizontalItemSpacing="4"
+                                    Orientation="Vertical"
+                                    Span="7"
+                                    VerticalItemSpacing="4" />
+                            </CollectionView.ItemsLayout>
 
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CalendarViewModel}}, Path=DaySelectedCommand}" CommandParameter="{Binding .}" />
-                                    </Frame.GestureRecognizers>
-
-                                    <Grid>
-                                        <Label
-                                            FontSize="16"
-                                            HorizontalOptions="Center"
-                                            Text="{Binding Day}"
-                                            VerticalOptions="Center">
-                                            <Label.Triggers>
-                                                <DataTrigger
-                                                    Binding="{Binding IsCurrentMonth}"
-                                                    TargetType="Label"
-                                                    Value="False">
-                                                    <Setter Property="TextColor" Value="#d1d5db" />
-                                                </DataTrigger>
-                                                <DataTrigger
-                                                    Binding="{Binding IsSelected}"
-                                                    TargetType="Label"
-                                                    Value="True">
-                                                    <Setter Property="TextColor" Value="White" />
-                                                    <Setter Property="FontAttributes" Value="Bold" />
-                                                </DataTrigger>
-                                                <DataTrigger
-                                                    Binding="{Binding IsToday}"
-                                                    TargetType="Label"
-                                                    Value="True">
-                                                    <Setter Property="FontAttributes" Value="Bold" />
-                                                </DataTrigger>
-                                            </Label.Triggers>
-                                        </Label>
-
-                                        <Ellipse
-                                            Margin="0,5,5,0"
-                                            Fill="#ef4444"
-                                            HeightRequest="8"
-                                            HorizontalOptions="End"
-                                            IsVisible="{Binding HasEvents}"
-                                            VerticalOptions="Start"
-                                            WidthRequest="8" />
-                                    </Grid>
-                                </Frame>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-
-                    <!--  Selected Date Events  -->
-                    <StackLayout IsVisible="{Binding SelectedDateEvents.Count, Converter={StaticResource IntToBoolConverter}}" Spacing="10">
-                        <Label
-                            FontAttributes="Bold"
-                            FontSize="18"
-                            Text="Eventos do Dia"
-                            TextColor="#374151" />
-
-                        <CollectionView ItemsSource="{Binding SelectedDateEvents}">
                             <CollectionView.ItemTemplate>
                                 <DataTemplate>
-                                    <Frame
-                                        Margin="0,5"
-                                        Padding="15"
-                                        BackgroundColor="#f8fafc"
-                                        BorderColor="#e2e8f0"
-                                        CornerRadius="8">
+                                    <Frame Style="{StaticResource CalendarDayStyle}">
+                                        <Frame.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding IsSelected}"
+                                                TargetType="Frame"
+                                                Value="True">
+                                                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+                                                <Setter Property="Shadow">
+                                                    <Setter.Value>
+                                                        <Shadow
+                                                            Brush="{StaticResource PrimaryColor}"
+                                                            Opacity="0.3"
+                                                            Radius="8"
+                                                            Offset="0,4" />
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                            <DataTrigger
+                                                Binding="{Binding IsToday}"
+                                                TargetType="Frame"
+                                                Value="True">
+                                                <Setter Property="BorderColor" Value="{StaticResource PrimaryColor}" />
+                                            </DataTrigger>
+                                        </Frame.Triggers>
+
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CalendarViewModel}}, Path=DaySelectedCommand}" CommandParameter="{Binding .}" />
+                                        </Frame.GestureRecognizers>
+
                                         <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-
-                                            <StackLayout Grid.Column="0">
-                                                <Label
-                                                    FontAttributes="Bold"
-                                                    FontSize="16"
-                                                    Text="{Binding Title}"
-                                                    TextColor="#1f2937" />
-                                                <Label
-                                                    FontSize="14"
-                                                    IsVisible="{Binding Description, Converter={StaticResource StringToBoolConverter}}"
-                                                    Text="{Binding Description}"
-                                                    TextColor="#6b7280" />
-                                                <Label
-                                                    FontAttributes="Bold"
-                                                    FontSize="12"
-                                                    Text="{Binding Category}"
-                                                    TextColor="#8b5cf6" />
-                                            </StackLayout>
-
-                                            <Button
-                                                Grid.Column="1"
-                                                BackgroundColor="Transparent"
-                                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CalendarViewModel}}, Path=DeleteEventCommand}"
-                                                CommandParameter="{Binding .}"
+                                            <Label
                                                 FontSize="16"
-                                                Text="🗑️"
-                                                TextColor="#ef4444" />
+                                                HorizontalOptions="Center"
+                                                Text="{Binding Day}"
+                                                VerticalOptions="Center">
+                                                <Label.Triggers>
+                                                    <!--  Dias de outros meses  -->
+                                                    <DataTrigger
+                                                        Binding="{Binding IsCurrentMonth}"
+                                                        TargetType="Label"
+                                                        Value="False">
+                                                        <Setter Property="TextColor" Value="{StaticResource TextMutedColor}" />
+                                                        <Setter Property="Opacity" Value="0.5" />
+                                                    </DataTrigger>
+
+                                                    <!--  Dia selecionado (prioridade alta)  -->
+                                                    <DataTrigger
+                                                        Binding="{Binding IsSelected}"
+                                                        TargetType="Label"
+                                                        Value="True">
+                                                        <Setter Property="TextColor" Value="White" />
+                                                        <Setter Property="FontAttributes" Value="Bold" />
+                                                    </DataTrigger>
+
+                                                    <!--  Dia de hoje (apenas quando não selecionado)  -->
+                                                    <MultiTrigger TargetType="Label">
+                                                        <MultiTrigger.Conditions>
+                                                            <BindingCondition Binding="{Binding IsToday}" Value="True" />
+                                                            <BindingCondition Binding="{Binding IsSelected}" Value="False" />
+                                                        </MultiTrigger.Conditions>
+                                                        <Setter Property="FontAttributes" Value="Bold" />
+                                                        <Setter Property="TextColor" Value="{StaticResource PrimaryColor}" />
+                                                    </MultiTrigger>
+                                                </Label.Triggers>
+                                            </Label>
+
+                                            <!--  Indicador de eventos melhorado  -->
+                                            <BoxView
+                                                Margin="0,2,2,0"
+                                                BackgroundColor="{StaticResource AccentColor}"
+                                                CornerRadius="3"
+                                                HeightRequest="6"
+                                                HorizontalOptions="End"
+                                                IsVisible="{Binding HasEvents}"
+                                                VerticalOptions="Start"
+                                                WidthRequest="6" />
                                         </Grid>
                                     </Frame>
                                 </DataTemplate>
                             </CollectionView.ItemTemplate>
                         </CollectionView>
                     </StackLayout>
+                </Frame>
 
-                    <!--  Add Event Button  -->
-                    <Button
-                        Padding="15"
-                        BackgroundColor="#10b981"
-                        Command="{Binding AddEventCommand}"
-                        CornerRadius="25"
-                        FontSize="16"
-                        Text="➕ Adicionar Evento"
-                        TextColor="White" />
-                </StackLayout>
-            </ScrollView>
-        </Frame>
+                <!--  Eventos do dia selecionado  -->
+                <Frame
+                    Padding="20"
+                    BackgroundColor="{StaticResource SurfaceColor}"
+                    CornerRadius="20"
+                    HasShadow="True"
+                    IsVisible="{Binding SelectedDateEvents.Count, Converter={StaticResource IntToBoolConverter}}">
+                    <Frame.Shadow>
+                        <Shadow
+                            Brush="Black"
+                            Opacity="0.1"
+                            Radius="8"
+                            Offset="0,2" />
+                    </Frame.Shadow>
 
-        <!--  Loading Indicator  -->
+                    <StackLayout Spacing="16">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="18"
+                            Text="📅 Eventos do Dia"
+                            TextColor="{StaticResource TextPrimaryColor}" />
+
+                        <CollectionView ItemTemplate="{StaticResource EventItemTemplate}" ItemsSource="{Binding SelectedDateEvents}" />
+                    </StackLayout>
+                </Frame>
+
+                <!--  Botão de adicionar evento  -->
+                <Button
+                    Command="{Binding AddEventCommand}"
+                    Style="{StaticResource AddEventButtonStyle}"
+                    Text="➕ Adicionar Evento" />
+            </StackLayout>
+        </ScrollView>
+
+        <!--  Indicador de carregamento  -->
         <ActivityIndicator
             Grid.Row="1"
             HorizontalOptions="Center"
             IsRunning="{Binding IsLoading}"
             IsVisible="{Binding IsLoading}"
             VerticalOptions="Center"
-            Color="#6366f1" />
+            Color="{StaticResource PrimaryColor}" />
     </Grid>
 </ContentPage>
