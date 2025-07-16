@@ -13,6 +13,7 @@ namespace Calendar.Services
             _database = new SQLiteAsyncConnection(dbPath);
             _database.CreateTableAsync<CalendarEvent>().Wait();
             _database.CreateTableAsync<DiaryNote>().Wait();
+            _database.CreateTableAsync<Appointment>().Wait();
         }
 
         // Métodos para CalendarEvent
@@ -105,6 +106,68 @@ namespace Calendar.Services
         public Task<int> DeleteDiaryNoteAsync(DiaryNote note)
         {
             return _database.DeleteAsync(note);
+        }
+
+        // Métodos para Appointment
+        public Task<List<Appointment>> GetAppointmentsAsync()
+        {
+            return _database.Table<Appointment>()
+                .OrderBy(a => a.Date)
+                .ThenBy(a => a.StartTime)
+                .ToListAsync();
+        }
+
+        public Task<List<Appointment>> GetAppointmentsByDateAsync(DateTime date)
+        {
+            var startDate = date.Date;
+            var endDate = startDate.AddDays(1);
+            return _database.Table<Appointment>()
+                .Where(a => a.Date >= startDate && a.Date < endDate)
+                .OrderBy(a => a.StartTime)
+                .ToListAsync();
+        }
+
+        public Task<List<Appointment>> GetUpcomingAppointmentsAsync()
+        {
+            return _database.Table<Appointment>()
+                .Where(a => a.Date >= DateTime.Today)
+                .OrderBy(a => a.Date)
+                .ThenBy(a => a.StartTime)
+                .ToListAsync();
+        }
+
+        public Task<Appointment> GetAppointmentAsync(int id)
+        {
+            return _database.Table<Appointment>()
+                .Where(a => a.Id == id)
+                .FirstOrDefaultAsync();
+        }
+
+        public Task<int> SaveAppointmentAsync(Appointment appointment)
+        {
+            appointment.UpdatedAt = DateTime.Now;
+            if (appointment.Id != 0)
+            {
+                return _database.UpdateAsync(appointment);
+            }
+            else
+            {
+                return _database.InsertAsync(appointment);
+            }
+        }
+
+        public Task<int> DeleteAppointmentAsync(Appointment appointment)
+        {
+            return _database.DeleteAsync(appointment);
+        }
+
+        public Task<List<Appointment>> GetAppointmentsByDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            return _database.Table<Appointment>()
+                .Where(a => a.Date >= startDate.Date && a.Date <= endDate.Date)
+                .OrderBy(a => a.Date)
+                .ThenBy(a => a.StartTime)
+                .ToListAsync();
         }
     }
 }

@@ -42,7 +42,12 @@
             Icon="calendar.png"
             Route="CalendarPage" />
         <ShellContent
-            Title="Diário"
+            Title="Horários"
+            ContentTemplate="{DataTemplate views:SchedulePage}"
+            Icon="schedule.png"
+            Route="SchedulePage" />
+        <ShellContent
+            Title="Anotações"
             ContentTemplate="{DataTemplate views:DiaryPage}"
             Icon="diary.png"
             Route="DiaryPage" />

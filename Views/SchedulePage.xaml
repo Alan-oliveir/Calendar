@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Calendar.Views.SchedulePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:Calendar.ViewModels"
+    Title="Horários"
+    BackgroundColor="#6366f1">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!--  Cores  -->
+            <Color x:Key="PrimaryColor">#6366f1</Color>
+            <Color x:Key="SecondaryColor">#8b5cf6</Color>
+            <Color x:Key="AccentColor">#10b981</Color>
+            <Color x:Key="SurfaceColor">#ffffff</Color>
+            <Color x:Key="BackgroundColor">#f8fafc</Color>
+            <Color x:Key="TextPrimaryColor">#1f2937</Color>
+            <Color x:Key="TextSecondaryColor">#6b7280</Color>
+            <Color x:Key="TextMutedColor">#9ca3af</Color>
+            <Color x:Key="BorderColor">#e5e7eb</Color>
+            <Color x:Key="ErrorColor">#ef4444</Color>
+
+            <!--  Estilos  -->
+            <Style x:Key="SaveButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Padding" Value="0,16" />
+                <Setter Property="CornerRadius" Value="25" />
+                <Setter Property="Shadow">
+                    <Setter.Value>
+                        <Shadow
+                            Brush="{StaticResource PrimaryColor}"
+                            Opacity="0.3"
+                            Radius="8"
+                            Offset="0,4" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="InputFieldStyle" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+                <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+                <Setter Property="PlaceholderColor" Value="{StaticResource TextMutedColor}" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Margin" Value="0,8" />
+                <Setter Property="HeightRequest" Value="50" />
+            </Style>
+
+            <Style x:Key="EditorStyle" TargetType="Editor">
+                <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+                <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+                <Setter Property="PlaceholderColor" Value="{StaticResource TextMutedColor}" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Margin" Value="0,8" />
+            </Style>
+
+            <Style x:Key="DatePickerStyle" TargetType="DatePicker">
+                <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+                <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Margin" Value="0,8" />
+                <Setter Property="HeightRequest" Value="50" />
+            </Style>
+
+            <Style x:Key="TimePickerStyle" TargetType="TimePicker">
+                <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+                <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Margin" Value="0,8" />
+                <Setter Property="HeightRequest" Value="50" />
+            </Style>
+
+            <!--  Template para compromissos  -->
+            <DataTemplate x:Key="AppointmentTemplate">
+                <Frame
+                    Margin="0,4"
+                    Padding="16"
+                    BackgroundColor="{StaticResource SurfaceColor}"
+                    CornerRadius="12"
+                    HasShadow="True">
+                    <Frame.Shadow>
+                        <Shadow
+                            Brush="Black"
+                            Opacity="0.1"
+                            Radius="4"
+                            Offset="0,2" />
+                    </Frame.Shadow>
+
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ScheduleViewModel}}, Path=EditAppointmentCommand}" CommandParameter="{Binding .}" />
+                    </Frame.GestureRecognizers>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="4" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <BoxView
+                            Grid.Row="0"
+                            Grid.RowSpan="4"
+                            Grid.Column="0"
+                            BackgroundColor="{Binding Color}"
+                            CornerRadius="2" />
+
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="12,0,0,0"
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            Text="{Binding Title}"
+                            TextColor="{StaticResource TextPrimaryColor}" />
+
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="12,0,0,0"
+                            FontSize="14"
+                            Text="{Binding TimeRange}"
+                            TextColor="{StaticResource PrimaryColor}" />
+
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="12,0,0,0"
+                            FontSize="12"
+                            Text="{Binding Description}"
+                            TextColor="{StaticResource TextSecondaryColor}" />
+
+                        <Label
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Margin="12,0,0,0"
+                            FontSize="12"
+                            Text="{Binding Date, StringFormat='{0:dd/MM/yyyy}'}"
+                            TextColor="{StaticResource TextMutedColor}" />
+
+                        <Button
+                            Grid.Row="0"
+                            Grid.RowSpan="4"
+                            Grid.Column="2"
+                            BackgroundColor="Transparent"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:ScheduleViewModel}}, Path=DeleteAppointmentCommand}"
+                            CommandParameter="{Binding .}"
+                            FontSize="18"
+                            Text="🗑️"
+                            TextColor="{StaticResource ErrorColor}"
+                            VerticalOptions="Start" />
+                    </Grid>
+                </Frame>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.Padding>
+            <OnPlatform x:TypeArguments="Thickness">
+                <On Platform="iOS" Value="0,44,0,34" />
+                <On Platform="Android" Value="16,24,16,16" />
+                <On Platform="WinUI" Value="16,8,16,16" />
+            </OnPlatform>
+        </Grid.Padding>
+
+        <Frame
+            Margin="16,35,16,16"
+            Padding="24"
+            BackgroundColor="{StaticResource SurfaceColor}"
+            CornerRadius="20"
+            HasShadow="True">
+            <Frame.Shadow>
+                <Shadow
+                    Brush="Black"
+                    Opacity="0.1"
+                    Radius="12"
+                    Offset="0,4" />
+            </Frame.Shadow>
+
+            <ScrollView>
+                <Grid Margin="0,0,12,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--  Seção Adicionar Compromisso  -->
+                    <StackLayout Grid.Row="0" Spacing="16">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="📅 Reuniões"
+                            TextColor="{StaticResource TextPrimaryColor}" />
+
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            Text="Novo Compromisso"
+                            TextColor="{StaticResource TextPrimaryColor}" />
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.5*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackLayout Grid.Column="0" Margin="0,0,8,0">
+                                <Label
+                                    FontSize="14"
+                                    Text="Data"
+                                    TextColor="{StaticResource TextSecondaryColor}" />
+                                <DatePicker
+                                    Date="{Binding SelectedDate}"
+                                    Format="dd/MM/yy"
+                                    Style="{StaticResource DatePickerStyle}" />
+                            </StackLayout>
+
+                            <StackLayout Grid.Column="1" Margin="4,0,4,0">
+                                <Label
+                                    FontSize="14"
+                                    Text="Início"
+                                    TextColor="{StaticResource TextSecondaryColor}" />
+                                <TimePicker
+                                    Format="HH:mm"
+                                    Style="{StaticResource TimePickerStyle}"
+                                    Time="{Binding StartTime}" />
+                            </StackLayout>
+
+                            <StackLayout Grid.Column="2" Margin="4,0,0,0">
+                                <Label
+                                    FontSize="14"
+                                    Text="Fim"
+                                    TextColor="{StaticResource TextSecondaryColor}" />
+                                <TimePicker
+                                    Format="HH:mm"
+                                    Style="{StaticResource TimePickerStyle}"
+                                    Time="{Binding EndTime}" />
+                            </StackLayout>
+                        </Grid>
+
+                        <Entry
+                            Placeholder="Título do compromisso"
+                            Style="{StaticResource InputFieldStyle}"
+                            Text="{Binding NewAppointmentTitle}" />
+
+                        <Editor
+                            HeightRequest="100"
+                            Placeholder="Descrição (opcional)"
+                            Style="{StaticResource EditorStyle}"
+                            Text="{Binding NewAppointmentDescription}" />
+
+                        <Button
+                            Command="{Binding SaveAppointmentCommand}"
+                            Style="{StaticResource SaveButtonStyle}"
+                            Text="➕ Horário">
+                            <Button.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding SaveAppointmentCommand.CanExecute}"
+                                    TargetType="Button"
+                                    Value="False">
+                                    <Setter Property="Opacity" Value="0.6" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                    </StackLayout>
+
+                    <!--  Separador  -->
+                    <BoxView
+                        Grid.Row="1"
+                        Margin="0,24"
+                        BackgroundColor="{StaticResource BorderColor}"
+                        HeightRequest="1" />
+
+                    <!--  Compromissos Agendados  -->
+                    <StackLayout Grid.Row="2" Spacing="16">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            Text="Agendados"
+                            TextColor="{StaticResource TextPrimaryColor}" />
+
+                        <Label
+                            FontSize="14"
+                            HorizontalOptions="Center"
+                            IsVisible="{Binding HasNoAppointments}"
+                            Text="Nenhum compromisso cadastrado"
+                            TextColor="{StaticResource TextMutedColor}"
+                            VerticalOptions="Center" />
+
+                        <CollectionView
+                            IsVisible="{Binding HasAppointments}"
+                            ItemTemplate="{StaticResource AppointmentTemplate}"
+                            ItemsSource="{Binding UpcomingAppointments}" />
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+        </Frame>
+
+        <!--  Indicador de carregamento  -->
+        <ActivityIndicator
+            HorizontalOptions="Center"
+            IsRunning="{Binding IsLoading}"
+            IsVisible="{Binding IsLoading}"
+            VerticalOptions="Center"
+            Color="{StaticResource SurfaceColor}" />
+    </Grid>
+</ContentPage>

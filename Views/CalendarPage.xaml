@@ -421,7 +421,7 @@
                 <Button
                     Command="{Binding AddEventCommand}"
                     Style="{StaticResource AddEventButtonStyle}"
-                    Text="➕ Adicionar Evento">
+                    Text="➕ Evento">
                     <Button.Margin>
                         <OnPlatform x:TypeArguments="Thickness">
                             <On Platform="iOS" Value="0,8,0,16" />
