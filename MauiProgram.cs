@@ -25,12 +25,14 @@ public static class MauiProgram
         builder.Services.AddTransient<CalendarViewModel>();
         builder.Services.AddTransient<DiaryViewModel>();
         builder.Services.AddTransient<ScheduleViewModel>();
+        builder.Services.AddTransient<TasksViewModel>();
 
         // Registrar Views
         builder.Services.AddTransient<CalendarPage>();
         builder.Services.AddTransient<EventDetailPage>();
         builder.Services.AddTransient<DiaryPage>();
         builder.Services.AddTransient<SchedulePage>();
+        builder.Services.AddTransient<TasksPage>();
 
 #if DEBUG
         builder.Services.AddLogging(configure =>

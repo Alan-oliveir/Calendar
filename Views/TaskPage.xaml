@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Calendar.Views.TasksPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodels="clr-namespace:Calendar.ViewModels"
+    Title="Tarefas"
+    BackgroundColor="#6366f1">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!--  Cores  -->
+            <Color x:Key="PrimaryColor">#6366f1</Color>
+            <Color x:Key="SecondaryColor">#8b5cf6</Color>
+            <Color x:Key="AccentColor">#10b981</Color>
+            <Color x:Key="SurfaceColor">#ffffff</Color>
+            <Color x:Key="BackgroundColor">#f8fafc</Color>
+            <Color x:Key="TextPrimaryColor">#1f2937</Color>
+            <Color x:Key="TextSecondaryColor">#6b7280</Color>
+            <Color x:Key="TextMutedColor">#9ca3af</Color>
+            <Color x:Key="BorderColor">#e5e7eb</Color>
+            <Color x:Key="ErrorColor">#ef4444</Color>
+            <Color x:Key="SuccessColor">#10b981</Color>
+            <Color x:Key="WarningColor">#f59e0b</Color>
+
+            <!--  Estilos  -->
+            <Style x:Key="AddButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Padding" Value="0,16" />
+                <Setter Property="CornerRadius" Value="25" />
+                <Setter Property="Shadow">
+                    <Setter.Value>
+                        <Shadow
+                            Brush="{StaticResource PrimaryColor}"
+                            Opacity="0.3"
+                            Radius="8"
+                            Offset="0,4" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="InputFieldStyle" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+                <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+                <Setter Property="PlaceholderColor" Value="{StaticResource TextMutedColor}" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Margin" Value="0,8" />
+                <Setter Property="HeightRequest" Value="50" />
+            </Style>
+
+            <Style x:Key="EditorStyle" TargetType="Editor">
+                <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+                <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+                <Setter Property="PlaceholderColor" Value="{StaticResource TextMutedColor}" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Margin" Value="0,8" />
+            </Style>
+
+            <Style x:Key="DatePickerStyle" TargetType="DatePicker">
+                <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+                <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Margin" Value="0,8" />
+                <Setter Property="HeightRequest" Value="50" />
+            </Style>
+
+            <Style x:Key="PickerStyle" TargetType="Picker">
+                <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
+                <Setter Property="TextColor" Value="{StaticResource TextPrimaryColor}" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="Margin" Value="0,8" />
+                <Setter Property="HeightRequest" Value="50" />
+            </Style>
+
+            <!--  Template para tarefas  -->
+            <DataTemplate x:Key="TaskTemplate">
+                <Frame
+                    Margin="0,4"
+                    Padding="16"
+                    BackgroundColor="{StaticResource SurfaceColor}"
+                    CornerRadius="0"
+                    HasShadow="True">
+                    <Frame.Shadow>
+                        <Shadow
+                            Brush="Black"
+                            Opacity="0.1"
+                            Radius="4"
+                            Offset="0,2" />
+                    </Frame.Shadow>
+
+                    <Frame.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsCompleted}"
+                            TargetType="Frame"
+                            Value="True">
+                            <Setter Property="Opacity" Value="0.7" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding IsOverdue}"
+                            TargetType="Frame"
+                            Value="True">
+                            <Setter Property="BorderColor" Value="{StaticResource ErrorColor}" />
+                        </DataTrigger>
+                    </Frame.Triggers>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <!--  Linha superior: Checkbox + Conteúdo  -->
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--  Checkbox para marcar como concluída  -->
+                            <CheckBox
+                                Grid.Column="0"
+                                IsChecked="{Binding IsCompleted}"
+                                VerticalOptions="Center"
+                                Color="{StaticResource AccentColor}">
+                                <CheckBox.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TasksViewModel}}, Path=ToggleTaskCompletionCommand}" CommandParameter="{Binding .}" />
+                                </CheckBox.GestureRecognizers>
+                            </CheckBox>
+
+                            <!--  Conteúdo da tarefa  -->
+                            <StackLayout Grid.Column="1" Margin="12,0,0,0">
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="16"
+                                    Text="{Binding Title}"
+                                    TextColor="{StaticResource TextPrimaryColor}">
+                                    <Label.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding IsCompleted}"
+                                            TargetType="Label"
+                                            Value="True">
+                                            <Setter Property="TextDecorations" Value="Strikethrough" />
+                                            <Setter Property="TextColor" Value="{StaticResource TextMutedColor}" />
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+
+                                <Label
+                                    Margin="0,2,0,0"
+                                    FontSize="14"
+                                    IsVisible="{Binding Description, Converter={StaticResource StringToBoolConverter}}"
+                                    Text="{Binding Description}"
+                                    TextColor="{StaticResource TextSecondaryColor}" />
+
+                                <StackLayout
+                                    Margin="0,4,0,0"
+                                    Orientation="Horizontal"
+                                    Spacing="8">
+                                    <Label
+                                        FontSize="12"
+                                        Text="{Binding PriorityIcon}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        FontSize="12"
+                                        Text="{Binding Priority}"
+                                        TextColor="{StaticResource TextSecondaryColor}"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+
+                                <StackLayout
+                                    Margin="0,2,0,0"
+                                    Orientation="Horizontal"
+                                    Spacing="8">
+                                    <Label
+                                        FontSize="12"
+                                        Text="📅"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        FontSize="12"
+                                        Text="{Binding DueDateDisplay}"
+                                        TextColor="{StaticResource TextMutedColor}"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        FontSize="12"
+                                        Text="{Binding StatusText}"
+                                        TextColor="{StaticResource TextSecondaryColor}"
+                                        VerticalOptions="Center" />
+                                </StackLayout>
+                            </StackLayout>
+                        </Grid>
+
+                        <!--  Linha inferior: Botões de ação  -->
+                        <Grid Grid.Row="1" Margin="0,12,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <!--  Botão Editar  -->
+                            <Button
+                                Grid.Column="1"
+                                Margin="0,8,8,0"
+                                Padding="16,8"
+                                BackgroundColor="{StaticResource PrimaryColor}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TasksViewModel}}, Path=EditTaskCommand}"
+                                CommandParameter="{Binding .}"
+                                CornerRadius="15"
+                                FontSize="12"
+                                Text="✏️ Editar"
+                                TextColor="White" />
+
+                            <!--  Botão Excluir  -->
+                            <Button
+                                Grid.Column="2"
+                                Margin="0,8,0,0"
+                                Padding="16,8"
+                                BackgroundColor="{StaticResource ErrorColor}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:TasksViewModel}}, Path=DeleteTaskCommand}"
+                                CommandParameter="{Binding .}"
+                                CornerRadius="15"
+                                FontSize="12"
+                                Text="🗑️ Excluir"
+                                TextColor="White" />
+                        </Grid>
+                    </Grid>
+                </Frame>
+            </DataTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.Padding>
+            <OnPlatform x:TypeArguments="Thickness">
+                <On Platform="iOS" Value="0,44,0,34" />
+                <On Platform="Android" Value="16,24,16,16" />
+                <On Platform="WinUI" Value="16,8,16,16" />
+            </OnPlatform>
+        </Grid.Padding>
+
+        <Frame
+            Margin="16,35,16,16"
+            Padding="24"
+            BackgroundColor="{StaticResource SurfaceColor}"
+            CornerRadius="20"
+            HasShadow="True">
+            <Frame.Shadow>
+                <Shadow
+                    Brush="Black"
+                    Opacity="0.1"
+                    Radius="12"
+                    Offset="0,4" />
+            </Frame.Shadow>
+
+            <ScrollView>
+                <Grid Margin="0,0,12,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--  Seção Nova Tarefa  -->
+                    <StackLayout Grid.Row="0" Spacing="16">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="✅ Lista de Tarefas"
+                            TextColor="{StaticResource TextPrimaryColor}" />
+
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            Text="Nova Tarefa"
+                            TextColor="{StaticResource TextPrimaryColor}" />
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackLayout Grid.Column="0" Margin="0,0,8,0">
+                                <Label
+                                    FontSize="14"
+                                    Text="Vencimento"
+                                    TextColor="{StaticResource TextSecondaryColor}" />
+                                <DatePicker
+                                    Date="{Binding DueDate}"
+                                    Format="dd/MM/yyyy"
+                                    Style="{StaticResource DatePickerStyle}" />
+                            </StackLayout>
+
+                            <StackLayout Grid.Column="1" Margin="8,0,0,0">
+                                <Label
+                                    FontSize="14"
+                                    Text="Prioridade"
+                                    TextColor="{StaticResource TextSecondaryColor}" />
+                                <Picker
+                                    Title="Selecione a prioridade"
+                                    HeightRequest="50"
+                                    ItemsSource="{Binding PriorityOptions}"
+                                    SelectedItem="{Binding SelectedPriority}"
+                                    Style="{StaticResource PickerStyle}" />
+                            </StackLayout>
+                        </Grid>
+
+                        <Entry
+                            Placeholder="Tarefa"
+                            Style="{StaticResource InputFieldStyle}"
+                            Text="{Binding NewTaskTitle}" />
+
+                        <Editor
+                            HeightRequest="80"
+                            Placeholder="Detalhes da tarefa (opcional)"
+                            Style="{StaticResource EditorStyle}"
+                            Text="{Binding NewTaskDescription}" />
+
+                        <Button
+                            Command="{Binding AddTaskCommand}"
+                            Style="{StaticResource AddButtonStyle}"
+                            Text="➕ Tarefa">
+                            <Button.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding AddTaskCommand.CanExecute}"
+                                    TargetType="Button"
+                                    Value="False">
+                                    <Setter Property="Opacity" Value="0.6" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                    </StackLayout>
+
+                    <!--  Separador  -->
+                    <BoxView
+                        Grid.Row="1"
+                        Margin="0,24"
+                        BackgroundColor="{StaticResource BorderColor}"
+                        HeightRequest="1" />
+
+                    <!--  Lista de Tarefas  -->
+                    <StackLayout Grid.Row="2" Spacing="16">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            Text="Tarefas"
+                            TextColor="{StaticResource TextPrimaryColor}" />
+
+                        <!--  Filtros  -->
+                        <StackLayout Orientation="Horizontal" Spacing="8">
+                            <Button
+                                Padding="10,8"
+                                BackgroundColor="{StaticResource AccentColor}"
+                                Command="{Binding FilterTasksCommand}"
+                                CommandParameter="All"
+                                CornerRadius="15"
+                                FontSize="12"
+                                Text="Todas"
+                                TextColor="White" />
+                            <Button
+                                Padding="10,8"
+                                BackgroundColor="{StaticResource WarningColor}"
+                                Command="{Binding FilterTasksCommand}"
+                                CommandParameter="Pending"
+                                CornerRadius="15"
+                                FontSize="12"
+                                Text="Pendentes"
+                                TextColor="White" />
+                            <Button
+                                Padding="10,8"
+                                BackgroundColor="{StaticResource SuccessColor}"
+                                Command="{Binding FilterTasksCommand}"
+                                CommandParameter="Completed"
+                                CornerRadius="15"
+                                FontSize="12"
+                                Text="Concluídas"
+                                TextColor="White" />
+                        </StackLayout>
+
+                        <Label
+                            FontSize="14"
+                            HorizontalOptions="Center"
+                            IsVisible="{Binding HasNoTasks}"
+                            Text="Nenhuma tarefa adicionada"
+                            TextColor="{StaticResource TextMutedColor}"
+                            VerticalOptions="Center" />
+
+                        <CollectionView
+                            IsVisible="{Binding HasTasks}"
+                            ItemTemplate="{StaticResource TaskTemplate}"
+                            ItemsSource="{Binding FilteredTasks}" />
+                    </StackLayout>
+                </Grid>
+            </ScrollView>
+        </Frame>
+
+        <!--  Indicador de carregamento  -->
+        <ActivityIndicator
+            HorizontalOptions="Center"
+            IsRunning="{Binding IsLoading}"
+            IsVisible="{Binding IsLoading}"
+            VerticalOptions="Center"
+            Color="{StaticResource SurfaceColor}" />
+    </Grid>
+</ContentPage>

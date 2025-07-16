@@ -105,7 +105,7 @@ namespace Calendar.ViewModels
                 var startDate = firstDayOfMonth.AddDays(-(int)firstDayOfMonth.DayOfWeek);
                 var endDate = lastDayOfMonth.AddDays(6 - (int)lastDayOfMonth.DayOfWeek);
 
-                var events = await _databaseService.GetEventsByMonthAsync(_currentDate.Year, _currentDate.Month);
+                var events = await _databaseService.GetEventsByDateRangeAsync(startDate, endDate);
 
                 var calendarDays = new ObservableCollection<CalendarDay>();
 

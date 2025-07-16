@@ -14,6 +14,7 @@ namespace Calendar.Services
             _database.CreateTableAsync<CalendarEvent>().Wait();
             _database.CreateTableAsync<DiaryNote>().Wait();
             _database.CreateTableAsync<Appointment>().Wait();
+            _database.CreateTableAsync<TaskItem>().Wait();
         }
 
         // Métodos para CalendarEvent
@@ -73,6 +74,13 @@ namespace Calendar.Services
                 .Where(e => e.Date >= startDate && e.Date < endDate)
                 .CountAsync()
                 .ContinueWith(task => task.Result > 0);
+        }
+
+        public Task<List<CalendarEvent>> GetEventsByDateRangeAsync(DateTime startDate, DateTime endDate)
+        {
+            return _database.Table<CalendarEvent>()
+                .Where(e => e.Date >= startDate.Date && e.Date <= endDate.Date)
+                .ToListAsync();
         }
 
         // Métodos para DiaryNote
@@ -167,6 +175,73 @@ namespace Calendar.Services
                 .Where(a => a.Date >= startDate.Date && a.Date <= endDate.Date)
                 .OrderBy(a => a.Date)
                 .ThenBy(a => a.StartTime)
+                .ToListAsync();
+        }
+
+        // Métodos para TaskItem:
+        public Task<List<TaskItem>> GetTasksAsync()
+        {
+            return _database.Table<TaskItem>()
+                .OrderBy(t => t.IsCompleted)
+                .ThenBy(t => t.DueDate)
+                .ToListAsync();
+        }
+
+        public Task<List<TaskItem>> GetPendingTasksAsync()
+        {
+            return _database.Table<TaskItem>()
+                .Where(t => !t.IsCompleted)
+                .OrderBy(t => t.DueDate)
+                .ToListAsync();
+        }
+
+        public Task<List<TaskItem>> GetCompletedTasksAsync()
+        {
+            return _database.Table<TaskItem>()
+                .Where(t => t.IsCompleted)
+                .OrderByDescending(t => t.CompletedAt)
+                .ToListAsync();
+        }
+
+        public Task<List<TaskItem>> GetOverdueTasksAsync()
+        {
+            return _database.Table<TaskItem>()
+                .Where(t => !t.IsCompleted && t.DueDate < DateTime.Today)
+                .OrderBy(t => t.DueDate)
+                .ToListAsync();
+        }
+
+        public Task<TaskItem> GetTaskAsync(int id)
+        {
+            return _database.Table<TaskItem>()
+                .Where(t => t.Id == id)
+                .FirstOrDefaultAsync();
+        }
+
+        public Task<int> SaveTaskAsync(TaskItem task)
+        {
+            task.UpdatedAt = DateTime.Now;
+            if (task.Id != 0)
+            {
+                return _database.UpdateAsync(task);
+            }
+            else
+            {
+                return _database.InsertAsync(task);
+            }
+        }
+
+        public Task<int> DeleteTaskAsync(TaskItem task)
+        {
+            return _database.DeleteAsync(task);
+        }
+
+        public Task<List<TaskItem>> GetTasksByPriorityAsync(string priority)
+        {
+            return _database.Table<TaskItem>()
+                .Where(t => t.Priority == priority)
+                .OrderBy(t => t.IsCompleted)
+                .ThenBy(t => t.DueDate)
                 .ToListAsync();
         }
     }

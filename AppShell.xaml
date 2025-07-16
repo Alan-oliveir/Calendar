@@ -47,14 +47,14 @@
             Icon="schedule.png"
             Route="SchedulePage" />
         <ShellContent
+            Title="Tarefas"
+            ContentTemplate="{DataTemplate views:TasksPage}"
+            Icon="tasks.png"
+            Route="TasksPage" />
+        <ShellContent
             Title="Anotações"
             ContentTemplate="{DataTemplate views:DiaryPage}"
             Icon="diary.png"
             Route="DiaryPage" />
-        <ShellContent
-            Title="Configurações"
-            ContentTemplate="{DataTemplate local:MainPage}"
-            Icon="settings.png"
-            Route="SettingsPage" />
     </TabBar>
 </Shell>

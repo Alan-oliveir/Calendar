@@ -1,0 +1,23 @@
+<svg width="456" height="456" viewBox="0 0 456 456" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="228" cy="228" r="228" fill="#6366f1"/>
+  <g fill="white">
+    <!-- Calendário -->
+    <rect x="100" y="120" width="256" height="216" rx="12" fill="white"/>
+    <rect x="100" y="120" width="256" height="48" rx="12" fill="white"/>
+    <rect x="100" y="156" width="256" height="180" rx="0" fill="white"/>
+    
+    <!-- Argolas do calendário -->
+    <rect x="160" y="80" width="16" height="64" rx="8" fill="white"/>
+    <rect x="280" y="80" width="16" height="64" rx="8" fill="white"/>
+    
+    <!-- Linha divisória -->
+    <rect x="120" y="200" width="216" height="3" rx="1.5" fill="#6366f1"/>
+    
+    <!-- Linhas do calendário -->
+    <rect x="120" y="240" width="120" height="3" rx="1.5" fill="#6366f1"/>
+    <rect x="120" y="280" width="80" height="3" rx="1.5" fill="#6366f1"/>
+  </g>
+  
+  <!-- Texto do app -->
+  <text x="228" y="400" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="32" font-weight="bold">Agenda Pessoal</text>
+</svg>

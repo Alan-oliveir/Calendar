@@ -1,16 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-	    <!--  Titulo -->
-	    <ApplicationTitle>Calendário Pessoal</ApplicationTitle>
-	    <!-- Propriedades -->
+		<!--  Titulo -->
+		<ApplicationTitle>Agenda Pessoal</ApplicationTitle>
+		<!-- Propriedades -->
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
-		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
-		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
 		<OutputType>Exe</OutputType>
 		<RootNamespace>Calendar</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -33,18 +31,42 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+
+		<!-- Configuração específica para Windows -->
+		<UseWinUI Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">true</UseWinUI>
+	</PropertyGroup>
+
+	<!-- Configuração específica para Android -->
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
+		<AndroidUseAapt2>True</AndroidUseAapt2>
+		<AndroidCreatePackagePerAbi>False</AndroidCreatePackagePerAbi>
+		<AndroidVersionCode>1</AndroidVersionCode>
+		<AndroidVersionName>1.0</AndroidVersionName>
+		<AndroidMinSdkVersion>21</AndroidMinSdkVersion>
+		<AndroidTargetSdkVersion>34</AndroidTargetSdkVersion>
+		<AndroidCompileSdkVersion>34</AndroidCompileSdkVersion>
+	</PropertyGroup>
+
+	<!-- Configuração específica para Windows (CORRIGIDA) -->
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-windows10.0.19041.0'">
+		<OutputType>WinExe</OutputType>
+		<UseWinUI>true</UseWinUI>
+		<WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
+		<WindowsPackageType>None</WindowsPackageType>
+		<PublishSingleFile>false</PublishSingleFile>
+		<SelfContained>false</SelfContained>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#6366f1" />
 
-		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.png" Color="#6366f1" BaseSize="500,500" />
+		<!-- Splash Screen (corrigido para todas as plataformas) -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#6366f1" BaseSize="456,456" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
-		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -63,29 +85,36 @@
 
 	<ItemGroup>
 		<Folder Include="Resources\Images\" />
+		<Folder Include="Resources\Splash\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\DiaryPage.xaml.cs">
-	    <DependentUpon>DiaryPage.xaml</DependentUpon>
-	  </Compile>
-	  <Compile Update="Views\SchedulePage.xaml.cs">
-	    <DependentUpon>SchedulePage.xaml</DependentUpon>
-	  </Compile>
+		<Compile Update="Views\DiaryPage.xaml.cs">
+			<DependentUpon>DiaryPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\TaskPage.xaml.cs">
+			<DependentUpon>TaskPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\SchedulePage.xaml.cs">
+			<DependentUpon>SchedulePage.xaml</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Views\DiaryPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Views\SchedulePage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
+		<MauiXaml Update="Views\DiaryPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\TaskPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\SchedulePage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 	</ItemGroup>
 
 	<PropertyGroup>
-	    <!-- Manter ou mudar para disable -->
-	    <Nullable>disable</Nullable>
+		<!-- Manter ou mudar para disable -->
+		<Nullable>disable</Nullable>
 	</PropertyGroup>
 
 </Project>

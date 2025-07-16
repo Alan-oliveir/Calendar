@@ -76,9 +76,9 @@
             <DataTemplate x:Key="EventItemTemplate">
                 <Frame
                     Margin="0,4"
-                    Padding="16"
+                    Padding="2"
                     BackgroundColor="{StaticResource SurfaceColor}"
-                    CornerRadius="12"
+                    CornerRadius="0"
                     HasShadow="True">
                     <Frame.Shadow>
                         <Shadow
@@ -375,13 +375,15 @@
 
                                             <!--  Indicador de eventos melhorado  -->
                                             <Ellipse
-                                                Margin="0,1,1,0"
+                                                Margin="0,4,4,0"
                                                 Fill="{StaticResource AccentColor}"
-                                                HeightRequest="4"
+                                                HeightRequest="6"
                                                 HorizontalOptions="End"
                                                 IsVisible="{Binding HasEvents}"
+                                                Stroke="{StaticResource SurfaceColor}"
+                                                StrokeThickness="1"
                                                 VerticalOptions="Start"
-                                                WidthRequest="4" />
+                                                WidthRequest="6" />
                                         </Grid>
                                     </Frame>
                                 </DataTemplate>
