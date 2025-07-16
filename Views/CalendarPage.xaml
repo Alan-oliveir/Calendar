@@ -21,20 +21,16 @@
             <Color x:Key="BorderColor">#e5e7eb</Color>
             <Color x:Key="ErrorColor">#ef4444</Color>
 
-            <!--  Gradientes  -->
-            <LinearGradientBrush x:Key="HeaderGradient" StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Offset="0" Color="#667eea" />
-                <GradientStop Offset="1" Color="#764ba2" />
-            </LinearGradientBrush>
-
-            <!--  Estilos dos botões de navegação  -->
+            <!--  Estilos dos botões de navegação - Mobile Optimized  -->
             <Style x:Key="HeaderButtonStyle" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{StaticResource SurfaceColor}" />
                 <Setter Property="TextColor" Value="{StaticResource PrimaryColor}" />
-                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontSize" Value="20" />
                 <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="Padding" Value="20,12" />
-                <Setter Property="CornerRadius" Value="25" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="CornerRadius" Value="20" />
+                <Setter Property="HeightRequest" Value="40" />
+                <Setter Property="WidthRequest" Value="40" />
                 <Setter Property="Shadow">
                     <Setter.Value>
                         <Shadow
@@ -46,37 +42,15 @@
                 </Setter>
             </Style>
 
-            <!--  Estilos das abas  -->
-            <Style x:Key="TabButtonStyle" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="TextColor" Value="White" />
-                <Setter Property="FontSize" Value="13" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="Padding" Value="16,8" />
-                <Setter Property="CornerRadius" Value="20" />
-                <Setter Property="BorderColor" Value="White" />
-                <Setter Property="Opacity" Value="0.7" />
-            </Style>
-
-            <Style
-                x:Key="ActiveTabButtonStyle"
-                BasedOn="{StaticResource TabButtonStyle}"
-                TargetType="Button">
-                <Setter Property="BackgroundColor" Value="White" />
-                <Setter Property="TextColor" Value="{StaticResource PrimaryColor}" />
-                <Setter Property="Opacity" Value="1" />
-                <Setter Property="FontAttributes" Value="Bold" />
-            </Style>
-
-            <!--  Estilo dos dias do calendário  -->
+            <!--  Estilo dos dias do calendário - Mobile Optimized  -->
             <Style x:Key="CalendarDayStyle" TargetType="Frame">
                 <Setter Property="BackgroundColor" Value="Transparent" />
                 <Setter Property="BorderColor" Value="Transparent" />
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="HasShadow" Value="False" />
-                <Setter Property="CornerRadius" Value="12" />
-                <Setter Property="HeightRequest" Value="48" />
-                <Setter Property="WidthRequest" Value="48" />
+                <Setter Property="CornerRadius" Value="18" />
+                <Setter Property="HeightRequest" Value="36" />
+                <Setter Property="WidthRequest" Value="36" />
             </Style>
 
             <!--  Estilo do botão de adicionar evento  -->
@@ -163,11 +137,11 @@
     <!--  Container principal  -->
     <Grid>
         <!--  Conteúdo principal  -->
-        <ScrollView Padding="20,0">
-            <StackLayout Margin="0,20,0,40" Spacing="20">
+        <ScrollView Padding="8,0">
+            <StackLayout Margin="0,8,0,16" Spacing="12">
                 <!--  Header do calendário  -->
                 <Frame
-                    Padding="20,16"
+                    Padding="12,8"
                     BackgroundColor="{StaticResource SurfaceColor}"
                     CornerRadius="20"
                     HasShadow="True">
@@ -190,12 +164,12 @@
                             Grid.Column="0"
                             Command="{Binding PreviousMonthCommand}"
                             Style="{StaticResource HeaderButtonStyle}"
-                            Text="← Anterior" />
+                            Text="◀" />
 
                         <Label
                             Grid.Column="1"
                             FontAttributes="Bold"
-                            FontSize="20"
+                            FontSize="18"
                             HorizontalOptions="Center"
                             Text="{Binding MonthYearText}"
                             TextColor="{StaticResource TextPrimaryColor}"
@@ -205,13 +179,13 @@
                             Grid.Column="2"
                             Command="{Binding NextMonthCommand}"
                             Style="{StaticResource HeaderButtonStyle}"
-                            Text="Próximo →" />
+                            Text="▶" />
                     </Grid>
                 </Frame>
 
                 <!--  Calendário  -->
                 <Frame
-                    Padding="20"
+                    Padding="12"
                     BackgroundColor="{StaticResource SurfaceColor}"
                     CornerRadius="20"
                     HasShadow="True">
@@ -223,7 +197,7 @@
                             Offset="0,2" />
                     </Frame.Shadow>
 
-                    <StackLayout Spacing="16">
+                    <StackLayout Spacing="10">
                         <!--  Cabeçalho dos dias da semana  -->
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -239,49 +213,49 @@
                             <Label
                                 Grid.Column="0"
                                 FontAttributes="Bold"
-                                FontSize="12"
+                                FontSize="11"
                                 HorizontalOptions="Center"
                                 Text="Dom"
                                 TextColor="{StaticResource TextMutedColor}" />
                             <Label
                                 Grid.Column="1"
                                 FontAttributes="Bold"
-                                FontSize="12"
+                                FontSize="11"
                                 HorizontalOptions="Center"
                                 Text="Seg"
                                 TextColor="{StaticResource TextMutedColor}" />
                             <Label
                                 Grid.Column="2"
                                 FontAttributes="Bold"
-                                FontSize="12"
+                                FontSize="11"
                                 HorizontalOptions="Center"
                                 Text="Ter"
                                 TextColor="{StaticResource TextMutedColor}" />
                             <Label
                                 Grid.Column="3"
                                 FontAttributes="Bold"
-                                FontSize="12"
+                                FontSize="11"
                                 HorizontalOptions="Center"
                                 Text="Qua"
                                 TextColor="{StaticResource TextMutedColor}" />
                             <Label
                                 Grid.Column="4"
                                 FontAttributes="Bold"
-                                FontSize="12"
+                                FontSize="11"
                                 HorizontalOptions="Center"
                                 Text="Qui"
                                 TextColor="{StaticResource TextMutedColor}" />
                             <Label
                                 Grid.Column="5"
                                 FontAttributes="Bold"
-                                FontSize="12"
+                                FontSize="11"
                                 HorizontalOptions="Center"
                                 Text="Sex"
                                 TextColor="{StaticResource TextMutedColor}" />
                             <Label
                                 Grid.Column="6"
                                 FontAttributes="Bold"
-                                FontSize="12"
+                                FontSize="11"
                                 HorizontalOptions="Center"
                                 Text="Sáb"
                                 TextColor="{StaticResource TextMutedColor}" />
@@ -291,10 +265,10 @@
                         <CollectionView ItemsSource="{Binding CalendarDays}" SelectionMode="None">
                             <CollectionView.ItemsLayout>
                                 <GridItemsLayout
-                                    HorizontalItemSpacing="4"
+                                    HorizontalItemSpacing="2"
                                     Orientation="Vertical"
                                     Span="7"
-                                    VerticalItemSpacing="4" />
+                                    VerticalItemSpacing="2" />
                             </CollectionView.ItemsLayout>
 
                             <CollectionView.ItemTemplate>
@@ -306,13 +280,14 @@
                                                 TargetType="Frame"
                                                 Value="True">
                                                 <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+                                                <Setter Property="CornerRadius" Value="18" />
                                                 <Setter Property="Shadow">
                                                     <Setter.Value>
                                                         <Shadow
                                                             Brush="{StaticResource PrimaryColor}"
-                                                            Opacity="0.3"
-                                                            Radius="8"
-                                                            Offset="0,4" />
+                                                            Opacity="0.25"
+                                                            Radius="6"
+                                                            Offset="0,2" />
                                                     </Setter.Value>
                                                 </Setter>
                                             </DataTrigger>
@@ -330,7 +305,7 @@
 
                                         <Grid>
                                             <Label
-                                                FontSize="16"
+                                                FontSize="14"
                                                 HorizontalOptions="Center"
                                                 Text="{Binding Day}"
                                                 VerticalOptions="Center">
@@ -366,15 +341,14 @@
                                             </Label>
 
                                             <!--  Indicador de eventos melhorado  -->
-                                            <BoxView
-                                                Margin="0,2,2,0"
-                                                BackgroundColor="{StaticResource AccentColor}"
-                                                CornerRadius="3"
-                                                HeightRequest="6"
+                                            <Ellipse
+                                                Margin="0,1,1,0"
+                                                Fill="{StaticResource AccentColor}"
+                                                HeightRequest="4"
                                                 HorizontalOptions="End"
                                                 IsVisible="{Binding HasEvents}"
                                                 VerticalOptions="Start"
-                                                WidthRequest="6" />
+                                                WidthRequest="4" />
                                         </Grid>
                                     </Frame>
                                 </DataTemplate>
@@ -385,7 +359,7 @@
 
                 <!--  Eventos do dia selecionado  -->
                 <Frame
-                    Padding="20"
+                    Padding="12"
                     BackgroundColor="{StaticResource SurfaceColor}"
                     CornerRadius="20"
                     HasShadow="True"
@@ -398,10 +372,10 @@
                             Offset="0,2" />
                     </Frame.Shadow>
 
-                    <StackLayout Spacing="16">
+                    <StackLayout Spacing="12">
                         <Label
                             FontAttributes="Bold"
-                            FontSize="18"
+                            FontSize="16"
                             Text="📅 Eventos do Dia"
                             TextColor="{StaticResource TextPrimaryColor}" />
 
@@ -419,7 +393,6 @@
 
         <!--  Indicador de carregamento  -->
         <ActivityIndicator
-            Grid.Row="1"
             HorizontalOptions="Center"
             IsRunning="{Binding IsLoading}"
             IsVisible="{Binding IsLoading}"
