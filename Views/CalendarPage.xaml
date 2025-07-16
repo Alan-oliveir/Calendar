@@ -134,17 +134,40 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <!--  Container principal  -->
+    <!--  Container principal com Safe Area  -->
     <Grid>
+        <Grid.Padding>
+            <OnPlatform x:TypeArguments="Thickness">
+                <On Platform="iOS" Value="0,44,0,34" />
+                <On Platform="Android" Value="12,8,12,8" />
+                <On Platform="WinUI" Value="16,8,16,8" />
+            </OnPlatform>
+        </Grid.Padding>
+
         <!--  Conteúdo principal  -->
-        <ScrollView Padding="8,0">
-            <StackLayout Margin="0,8,0,16" Spacing="12">
+        <ScrollView>
+            <ScrollView.Padding>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS" Value="16,8,16,16" />
+                    <On Platform="Android" Value="8,8,8,16" />
+                    <On Platform="WinUI" Value="16,8,16,16" />
+                </OnPlatform>
+            </ScrollView.Padding>
+
+            <StackLayout Spacing="12">
                 <!--  Header do calendário  -->
                 <Frame
-                    Padding="12,8"
+                    Padding="16,12"
                     BackgroundColor="{StaticResource SurfaceColor}"
                     CornerRadius="20"
                     HasShadow="True">
+                    <Frame.Margin>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="iOS" Value="0,8,0,0" />
+                            <On Platform="Android" Value="2,4,2,0" />
+                            <On Platform="WinUI" Value="0,8,0,0" />
+                        </OnPlatform>
+                    </Frame.Margin>
                     <Frame.Shadow>
                         <Shadow
                             Brush="Black"
@@ -162,6 +185,7 @@
 
                         <Button
                             Grid.Column="0"
+                            Margin="3"
                             Command="{Binding PreviousMonthCommand}"
                             Style="{StaticResource HeaderButtonStyle}"
                             Text="◀" />
@@ -185,7 +209,8 @@
 
                 <!--  Calendário  -->
                 <Frame
-                    Padding="12"
+                    Margin="2,0,2,0"
+                    Padding="16,12"
                     BackgroundColor="{StaticResource SurfaceColor}"
                     CornerRadius="20"
                     HasShadow="True">
@@ -197,9 +222,9 @@
                             Offset="0,2" />
                     </Frame.Shadow>
 
-                    <StackLayout Spacing="10">
+                    <StackLayout Spacing="12">
                         <!--  Cabeçalho dos dias da semana  -->
-                        <Grid>
+                        <Grid Margin="4,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
@@ -263,12 +288,20 @@
 
                         <!--  Grade do calendário  -->
                         <CollectionView ItemsSource="{Binding CalendarDays}" SelectionMode="None">
+                            <CollectionView.Margin>
+                                <OnPlatform x:TypeArguments="Thickness">
+                                    <On Platform="iOS" Value="4,0" />
+                                    <On Platform="Android" Value="2,0" />
+                                    <On Platform="WinUI" Value="4,0" />
+                                </OnPlatform>
+                            </CollectionView.Margin>
+
                             <CollectionView.ItemsLayout>
                                 <GridItemsLayout
-                                    HorizontalItemSpacing="2"
+                                    HorizontalItemSpacing="4"
                                     Orientation="Vertical"
                                     Span="7"
-                                    VerticalItemSpacing="2" />
+                                    VerticalItemSpacing="4" />
                             </CollectionView.ItemsLayout>
 
                             <CollectionView.ItemTemplate>
@@ -359,7 +392,8 @@
 
                 <!--  Eventos do dia selecionado  -->
                 <Frame
-                    Padding="12"
+                    Margin="2,0,2,0"
+                    Padding="16,12"
                     BackgroundColor="{StaticResource SurfaceColor}"
                     CornerRadius="20"
                     HasShadow="True"
@@ -387,7 +421,15 @@
                 <Button
                     Command="{Binding AddEventCommand}"
                     Style="{StaticResource AddEventButtonStyle}"
-                    Text="➕ Adicionar Evento" />
+                    Text="➕ Adicionar Evento">
+                    <Button.Margin>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="iOS" Value="0,8,0,16" />
+                            <On Platform="Android" Value="2,4,2,24" />
+                            <On Platform="WinUI" Value="0,8,0,16" />
+                        </OnPlatform>
+                    </Button.Margin>
+                </Button>
             </StackLayout>
         </ScrollView>
 

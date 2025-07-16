@@ -31,7 +31,6 @@
             ContentTemplate="{DataTemplate views:CalendarPage}"
             Icon="calendar.png"
             Route="CalendarPage" />
-
         <ShellContent
             Title="Configurações"
             ContentTemplate="{DataTemplate local:MainPage}"
