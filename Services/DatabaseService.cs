@@ -12,8 +12,10 @@ namespace Calendar.Services
             var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Calendar.db3");
             _database = new SQLiteAsyncConnection(dbPath);
             _database.CreateTableAsync<CalendarEvent>().Wait();
+            _database.CreateTableAsync<DiaryNote>().Wait();
         }
 
+        // Métodos para CalendarEvent
         public Task<List<CalendarEvent>> GetEventsAsync()
         {
             return _database.Table<CalendarEvent>().ToListAsync();
@@ -70,6 +72,39 @@ namespace Calendar.Services
                 .Where(e => e.Date >= startDate && e.Date < endDate)
                 .CountAsync()
                 .ContinueWith(task => task.Result > 0);
+        }
+
+        // Métodos para DiaryNote
+        public Task<List<DiaryNote>> GetDiaryNotesAsync()
+        {
+            return _database.Table<DiaryNote>()
+                .OrderByDescending(n => n.CreatedAt)
+                .ToListAsync();
+        }
+
+        public Task<DiaryNote> GetDiaryNoteAsync(int id)
+        {
+            return _database.Table<DiaryNote>()
+                .Where(n => n.Id == id)
+                .FirstOrDefaultAsync();
+        }
+
+        public Task<int> SaveDiaryNoteAsync(DiaryNote note)
+        {
+            note.UpdatedAt = DateTime.Now;
+            if (note.Id != 0)
+            {
+                return _database.UpdateAsync(note);
+            }
+            else
+            {
+                return _database.InsertAsync(note);
+            }
+        }
+
+        public Task<int> DeleteDiaryNoteAsync(DiaryNote note)
+        {
+            return _database.DeleteAsync(note);
         }
     }
 }

@@ -20,7 +20,17 @@
                 <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF" />
                 <Setter Property="Shell.TabBarTitleColor" Value="White" />
             </Style>
-            <Style BasedOn="{StaticResource BaseStyle}" TargetType="TabBar" />
+
+            <!--  Estilo customizado para TabBar  -->
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="TabBar">
+                <Setter Property="Shell.TabBarIsVisible" Value="True" />
+            </Style>
+
+            <!--  Estilo para ShellContent  -->
+            <Style TargetType="ShellContent">
+                <Setter Property="Shell.TabBarIsVisible" Value="True" />
+            </Style>
+
             <Style BasedOn="{StaticResource BaseStyle}" TargetType="FlyoutItem" />
         </ResourceDictionary>
     </Shell.Resources>
@@ -31,6 +41,11 @@
             ContentTemplate="{DataTemplate views:CalendarPage}"
             Icon="calendar.png"
             Route="CalendarPage" />
+        <ShellContent
+            Title="Diário"
+            ContentTemplate="{DataTemplate views:DiaryPage}"
+            Icon="diary.png"
+            Route="DiaryPage" />
         <ShellContent
             Title="Configurações"
             ContentTemplate="{DataTemplate local:MainPage}"

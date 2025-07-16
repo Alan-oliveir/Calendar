@@ -1,18 +1,19 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<Application x:Class="Calendar.App"
-             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:Calendar"
-             xmlns:converters="clr-namespace:Calendar.Converters">
+<Application
+    x:Class="Calendar.App"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:Calendar.Converters"
+    xmlns:local="clr-namespace:Calendar">
 
     <Application.Resources>
         <ResourceDictionary>
-            <!-- Value Converters -->
+            <!--  Value Converters  -->
             <converters:IntToBoolConverter x:Key="IntToBoolConverter" />
             <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
             <converters:BoolToColorConverter x:Key="BoolToColorConverter" />
 
-            <!-- Global Styles -->
+            <!--  Global Styles  -->
             <Style TargetType="ContentPage">
                 <Setter Property="BackgroundColor" Value="#f8fafc" />
             </Style>
@@ -30,7 +31,7 @@
                 <Setter Property="Padding" Value="16,12" />
             </Style>
 
-            <!-- Color Palette -->
+            <!--  Color Palette  -->
             <Color x:Key="PrimaryColor">#6366f1</Color>
             <Color x:Key="SecondaryColor">#8b5cf6</Color>
             <Color x:Key="AccentColor">#10b981</Color>
