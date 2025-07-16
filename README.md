@@ -45,3 +45,11 @@ CalendarioApp/
 - **Visual Studio 2022**
 - **.NET 8.0 SDK**
 - **Workload do .NET MAUI** instalado
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## 👨‍💻 Autor
+
+Desenvolvido por [Alan Oliveira](https://github.com/Alan-oliveir).
