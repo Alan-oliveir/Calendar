@@ -1,4 +1,4 @@
-# 📅 Calendário Pessoal - .NET MAUI
+# 📅 Agenda Pessoal - .NET MAUI
 
 <div align="center">
   <img src="https://img.shields.io/badge/.NET-8.0-purple?style=for-the-badge&logo=dotnet" alt=".NET 8.0" />
@@ -7,72 +7,84 @@
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="MIT License" />
 </div>
 
-<br />
-
 <div align="center">
-  <h3>Um aplicativo de calendário multiplataforma com design moderno e funcional</h3>
-  <p>Desenvolvido com .NET MAUI e SQLite para Android, iOS, Windows e macOS</p>
+  <h3>Um aplicativo de calendário e tarefas multiplataforma com design moderno e funcional</h3>
+  <p>Desenvolvido com .NET MAUI e SQLite para Android e Windows</p>
 </div>
 
 <div align="center">
   <a href="#-sobre-o-projeto">Sobre</a> •
+  <a href="#-screenshots">Screenshots</a> •
   <a href="#-funcionalidades">Funcionalidades</a> •
   <a href="#-instalação">Instalação</a> •
+  <a href="#arquitetura-do-projeto">Arquitetura</a> •  
   <a href="#-tecnologias">Tecnologias</a> •
   <a href="#-contribuindo">Contribuindo</a> •
   <a href="#-licença">Licença</a>
 </div>
 
-<br />
-
 ## 🎯 Sobre o Projeto
 
-Este é um aplicativo de calendário pessoal multiplataforma que permite organizar eventos, tarefas e compromissos de forma intuitiva. Com uma interface moderna e responsiva, oferece uma experiência consistente em Android, iOS, Windows e macOS.
+![GitHub repo size](https://img.shields.io/github/repo-size/Alan-oliveir/Calendar)
+![GitHub code size](https://img.shields.io/github/languages/code-size/Alan-oliveir/Calendar)
+![GitHub top language](https://img.shields.io/github/languages/top/Alan-oliveir/Calendar)
+
+Este é um aplicativo de calendário pessoal multiplataforma que permite organizar eventos, tarefas e compromissos de forma intuitiva. Com uma interface moderna e responsiva, oferece uma experiência consistente em Android e Windows. O projeto foi desenvolvido como trabalho final da disciplina Software para Smartphone, do curso de Engenharia Eletrônica e de Computação da UFRJ.
 
 ### 🌟 Principais Características
 
 - 📱 **Interface Intuitiva**: Design moderno inspirado em aplicativos nativos
-- 🎨 **Personalização**: Cores e categorias personalizáveis
-- 💾 **Offline First**: Funciona completamente offline com SQLite
-- 🌐 **Multiplataforma**: Um código, todas as plataformas
+- 💾 **Offline**: Funciona completamente offline com SQLite
+- 🌐 **Multiplataforma**: Um código, todas as plataformas (com foco em Mobile)
 
 ## 📸 Screenshots
 
-> 🚧 **Em desenvolvimento** - Screenshots serão adicionados em breve
-
-| Desktop | Mobile | Tablet |
-|---------|--------|--------|
-| *Em breve* | *Em breve* | *Em breve* |
+<div align="center">
+  <img src="https://github.com/Alan-oliveir/Calendar/blob/master/Screenshots/screenshot_calendario.jpg" alt="Calendário" width="320"/>
+  &nbsp;
+  <img src="https://github.com/Alan-oliveir/Calendar/blob/master/Screenshots/screenshot_anota%C3%A7%C3%B5es.jpg" alt="Anotações" width="320"/>
+  &nbsp;
+  <img src="https://github.com/Alan-oliveir/Calendar/blob/master/Screenshots/screenshot_tarefa.jpg" alt="Tarefas" width="320"/>
+</div>
 
 ## ✨ Funcionalidades
 
+### 📅 **Módulo Calendário**
+- ✅ **Visualização Mensal Interativa** - Navegação fluida entre meses
+- ✅ **Gestão de Eventos** - Criação e exclusão de eventos
+- ✅ **Indicadores Visuais** - Pontinhos coloridos para dias com eventos
+- ✅ **Categorização** - Organização por categorias (Trabalho, Pessoal, Saúde, etc.)
+
+### ⏰ **Módulo Horários (Compromissos)**
+- ✅ **Agendamento de Compromissos** - Data, horário de início e fim
+- ✅ **Gestão de Reuniões** - Criação, edição e exclusão de reuniões
+- ✅ **Visualização Cronológica** - Lista ordenada por data e horário
+
+### ✅ **Módulo Tarefas (Lista de Tarefas)**
+- ✅ **Criação de Tarefas** - Título, descrição, prioridade e data de vencimento
+- ✅ **Controle de Status** - Marcar como concluída com checkbox
+- ✅ **Filtros Inteligentes** - Visualizar todas, pendentes ou concluídas
+- ✅ **Edição e Exclusão** - Botões de ação otimizados para mobile
+
+### 📝 **Módulo Anotações (Diário)**
+- ✅ **Criação de Notas** - Título e conteúdo
+- ✅ **Ordenação Cronológica** - Notas mais recentes primeiro
+- ✅ **Interface Limpa** - Foco na escrita e leitura
+
+### 💾 **Armazenamento**
+- ✅ **SQLite Local** - Banco de dados robusto e eficiente
+- ✅ **Funcionamento Offline** - Sem necessidade de conexão
+
 ### 📱 Interface do Usuário
-- ✅ **Calendário Visual Interativo** - Navegação fluida por meses
-- ✅ **Interface Responsiva** - Layout otimizado para todos os dispositivos
+- ✅ **Interface Responsiva** - Layout otimizado para dispositivos móveis
 - ✅ **Indicadores Visuais** - Pontos coloridos para dias com eventos
 
-### 🗂️ Gestão de Eventos
-- ✅ **Criar Eventos** - Título, descrição, categoria e cor personalizável
-- ✅ **Deletar Eventos** - Remoção rápida de eventos
-- ✅ **Visualização por Dia** - Lista detalhada dos eventos do dia
-
-### 🎨 Personalização
-- ✅ **Cores Personalizáveis** - Organize eventos por cores
-- ✅ **Sistema de Categorias** - Trabalho, Pessoal, Saúde, etc.
-
-### 💾 Armazenamento
-- ✅ **SQLite Local** - Dados salvos localmente
-- ✅ **Funcionamento Offline** - Sem necessidade de internet
-- ✅ **Performance Otimizada** - Acesso rápido aos dados
-
-### 🌐 Plataformas Suportadas
+### 🌐 Plataformas
 
 | Plataforma | Versão Mínima | Status |
 |-----------|---------------|---------|
 | **Android** | API 21 (5.0+) | ✅ Suportado |
-| **iOS** | 11.0+ | ✅ Suportado |
 | **Windows** | 10 Build 17763+ | ✅ Suportado |
-| **macOS** | 10.15+ | ✅ Suportado |
 
 ## 🏗️ Arquitetura do Projeto
 
@@ -80,25 +92,35 @@ O projeto segue as melhores práticas de desenvolvimento .NET MAUI com padrão *
 
 ```
 Calendar/
-├── � Models/
-│   └── CalendarEvent.cs              # Modelo de dados dos eventos
-├── � Services/
-│   └── DatabaseService.cs            # Serviço de acesso aos dados SQLite
-├── � ViewModels/
-│   └── CalendarViewModel.cs          # Lógica de apresentação do calendário
-├── � Views/
-│   ├── CalendarPage.xaml             # Página principal do calendário
-│   └── EventDetailPage.xaml          # Página de criação/edição de eventos
-├── � Converters/
+├── 📁 Models/
+│   ├── CalendarEvent.cs              # Modelo de dados dos eventos
+│   ├── Appointment.cs                # Modelo de dados dos compromissos
+│   ├── TaskItem.cs                   # Modelo de dados das tarefas
+│   └── DiaryNote.cs                  # Modelo de dados das anotações
+├── 📁 Services/
+│   └── DatabaseService.cs            # Serviço unificado de acesso aos dados
+├── 📁 ViewModels/
+│   ├── CalendarViewModel.cs          # Lógica do calendário
+│   ├── ScheduleViewModel.cs          # Lógica dos horários
+│   ├── TasksViewModel.cs             # Lógica das tarefas
+│   └── DiaryViewModel.cs             # Lógica das anotações
+├── 📁 Views/
+│   ├── CalendarPage.xaml             # Página do calendário
+│   ├── SchedulePage.xaml             # Página dos horários
+│   ├── TasksPage.xaml                # Página das tarefas
+│   ├── DiaryPage.xaml                # Página das anotações
+│   └── EventDetailPage.xaml          # Página de detalhes do evento
+├── 📁 Converters/
 │   └── ValueConverters.cs            # Conversores para data binding
-├── � Resources/
-│   ├── � AppIcon/                   # Ícones da aplicação
-│   ├── � Splash/                    # Tela de splash
-│   └── � Fonts/                     # Fontes personalizadas
-├── App.xaml                          # Configurações globais
-├── AppShell.xaml                     # Navegação principal
-├── MauiProgram.cs                    # Configuração da aplicação
-└── README.md                         # Documentação
+├── 📁 Resources/
+│   ├── 📁 AppIcon/                   # Ícones da aplicação
+│   ├── 📁 Splash/                    # Tela de splash
+│   ├── 📁 Images/                    # Imagens e recursos visuais
+│   └── 📁 Fonts/                     # Fontes personalizadas
+├── App.xaml                          # Configurações globais da aplicação
+├── AppShell.xaml                     # Navegação principal (TabBar)
+├── MauiProgram.cs                    # Configuração e DI
+└── README.md                         # Documentação do projeto
 ```
 
 ### 🔧 Padrões Implementados
@@ -108,10 +130,12 @@ Calendar/
 - **Data Binding** - Ligação reativa entre View e ViewModel
 - **Command Pattern** - Comandos para ações da interface
 - **Repository Pattern** - Acesso a dados através do DatabaseService
+- **Single Responsibility** - Cada classe tem uma responsabilidade específica
 
 ### 📊 Modelo de Dados
 
 ```csharp
+// Eventos do Calendário
 public class CalendarEvent
 {
     public int Id { get; set; }
@@ -122,14 +146,43 @@ public class CalendarEvent
     public string Color { get; set; }
     public bool IsAllDay { get; set; }
 }
+
+// Compromissos/Reuniões
+public class Appointment
+{
+    public int Id { get; set; }
+    public DateTime Date { get; set; }
+    public TimeSpan StartTime { get; set; }
+    public TimeSpan EndTime { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public string Location { get; set; }
+}
+
+// Tarefas
+public class TaskItem
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
+    public DateTime DueDate { get; set; }
+    public string Priority { get; set; }
+    public bool IsCompleted { get; set; }
+}
+
+// Anotações
+public class DiaryNote
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Content { get; set; }
+    public DateTime CreatedAt { get; set; }
+}
 ```
 
-
-## 🚀 Instalação e Configuração
+## 🚀 Instalação
 
 ### 📋 Pré-requisitos
-
-Certifique-se de ter os seguintes componentes instalados:
 
 - **Visual Studio 2022** (versão 17.8 ou superior)
 - **.NET 8.0 SDK**
@@ -178,44 +231,22 @@ dotnet --version
 dotnet workload install maui
 ```
 
-**Para macOS:**
-```bash
-# Instalar dependências do iOS
-sudo xcode-select --install
+## 💻 Tecnologias
 
-# Instalar workload do MAUI
-dotnet workload install maui
-```
+### 🔧 **Principais Tecnologias**
 
-## 🎨 Design e Interface
+- **.NET 8.0** - Framework principal
+- **.NET MAUI** - Framework multiplataforma
+- **SQLite** - Banco de dados local
+- **XAML** - Linguagem de marcação para UI
+- **C#** - Linguagem de programação principal
 
-### 🎨 Paleta de Cores
+### 🛠️ **Ferramentas de Desenvolvimento**
 
-<div align="center">
-
-| Cor | Hex | Uso |
-|-----|-----|-----|
-| ![#6366f1](https://via.placeholder.com/15/6366f1/000000?text=+) | `#6366f1` | Cor Primária (Índigo) |
-| ![#8b5cf6](https://via.placeholder.com/15/8b5cf6/000000?text=+) | `#8b5cf6` | Cor Secundária (Violeta) |
-| ![#10b981](https://via.placeholder.com/15/10b981/000000?text=+) | `#10b981` | Cor de Destaque (Esmeralda) |
-| ![#ffffff](https://via.placeholder.com/15/ffffff/000000?text=+) | `#ffffff` | Superfície (Branco) |
-| ![#f8fafc](https://via.placeholder.com/15/f8fafc/000000?text=+) | `#f8fafc` | Fundo (Cinza claro) |
-
-</div>
-
-### 🎯 Componentes Visuais
-
-- **Botões circulares** para navegação intuitiva
-- **Cards com sombras** para destacar eventos
-- **Indicadores coloridos** para dias com eventos
-- **Animações suaves** de transição entre páginas
-- **Design responsivo** que se adapta a diferentes tamanhos de tela
+- **Visual Studio 2022** - IDE principal
+- **Git** - Controle de versão
 
 ## 🤝 Contribuindo
-
-Contribuições são sempre bem-vindas! Sinta-se à vontade para contribuir com o projeto.
-
-### 🛠️ Como Contribuir
 
 1. **Faça um Fork** do projeto
 2. **Crie uma branch** para sua feature
@@ -232,112 +263,20 @@ Contribuições são sempre bem-vindas! Sinta-se à vontade para contribuir com 
    ```
 5. **Abra um Pull Request**
 
-### 📝 Diretrizes de Contribuição
+## 🤖 Uso de IA
 
-- ✅ Siga as convenções de código existentes
-- ✅ Adicione testes para novas funcionalidades
-- ✅ Atualize a documentação quando necessário
-- ✅ Mantenha commits pequenos e focados
-- ✅ Use mensagens de commit descritivas
-
-### 🐛 Reportando Bugs
-
-Encontrou um bug? Ajude-nos a corrigi-lo:
-
-1. Verifique se o bug já não foi reportado nas [Issues](https://github.com/Alan-oliveir/Calendar/issues)
-2. Crie uma nova issue com detalhes sobre o problema
-3. Inclua screenshots se aplicável
-4. Descreva os passos para reproduzir o bug
-
-### 💡 Sugestões de Funcionalidades
-
-Tem uma ideia para melhorar o app? Compartilhe conosco:
-
-1. Abra uma issue com a tag `enhancement`
-2. Descreva detalhadamente sua sugestão
-3. Explique como isso beneficiaria os usuários
-
-## ❓ FAQ
-
-<details>
-<summary><strong>📱 Em quais dispositivos posso usar o app?</strong></summary>
-
-O app funciona em:
-- **Android**: Smartphones e tablets com Android 5.0+
-- **iOS**: iPhone e iPad com iOS 11.0+
-- **Windows**: PCs com Windows 10 Build 17763+
-- **macOS**: Macs com macOS 10.15+
-
-</details>
-
-<details>
-<summary><strong>💾 Meus dados ficam seguros?</strong></summary>
-
-Sim! Todos os dados são armazenados localmente no seu dispositivo usando SQLite. Não enviamos nenhuma informação para servidores externos.
-
-</details>
-
-<details>
-<summary><strong>🌐 Preciso de internet para usar?</strong></summary>
-
-Não! O app funciona completamente offline. Todos os recursos estão disponíveis sem conexão com a internet.
-
-</details>
-
-## � Status do Projeto
-
-![GitHub last commit](https://img.shields.io/github/last-commit/Alan-oliveir/Calendar/)
-![GitHub issues](https://img.shields.io/github/issues/Alan-oliveir/Calendar/)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/Alan-oliveir/Calendar/)
-
-**Status atual:** 🚧 Em desenvolvimento ativo
-
-## 📞 Suporte e Contato
-
-### 🆘 Precisa de Ajuda?
-
-1. **Consulte a documentação** - Verifique este README
-2. **Procure nas Issues** - [Issues existentes](https://github.com/Alan-oliveir/Calendar/issues)
-3. **Crie uma nova Issue** - Relate problemas ou sugestões
-4. **Entre em contato** - Através do GitHub
-
-### 📧 Contato
-
-- **GitHub**: [@Alan-oliveir](https://github.com/Alan-oliveir)
-- **Email**: [Disponível no perfil GitHub](https://github.com/Alan-oliveir)
-
-### 🤝 Comunidade
-
-Junte-se à nossa comunidade:
-- ⭐ **Dê uma estrela** no projeto
-- 🍴 **Faça um fork** para contribuir
-- 🐛 **Reporte bugs** via Issues
-- 💡 **Sugira melhorias** via Issues
-
+Durante o desenvolvimento do projeto foi utilizado o **GitHub Copilot** como ferramenta para auxiliar na identificação e correção de erros, bem como para sugestões de melhorias na estrutura do código. Também foi utilizado o **DALL-E (OpenAI)** para criar ícones, splash screen e sugerir design para a interface da aplicação. 
+       
 ## 📄 Licença
-
-Este projeto está licenciado sob a **Licença MIT** - veja o arquivo [LICENSE](LICENSE) para detalhes.
-
-## 📊 Estatísticas
-
-<div align="center">
-
-![GitHub repo size](https://img.shields.io/github/repo-size/Alan-oliveir/Calendar)
-![GitHub code size](https://img.shields.io/github/languages/code-size/Alan-oliveir/Calendar)
-![Lines of code](https://img.shields.io/tokei/lines/github/Alan-oliveir/Calendar)
-![GitHub top language](https://img.shields.io/github/languages/top/Alan-oliveir/Calendar)
-
-</div>
+Este projeto está licenciado sob a Licença MIT. Veja o arquivo [LICENSE](https://github.com/Alan-oliveir/Calendar/blob/master/LICENSE.txt).
 
 ---
 
-<div align="center">
-  <h3>✨ Obrigado por usar o Calendário Pessoal! ✨</h3>
-  <p>Desenvolvido por <a href="https://github.com/Alan-oliveir">Alan Oliveira</a></p>
-  <p>
-    <a href="https://github.com/Alan-oliveir/Calendar/stargazers">⭐ Dê uma estrela</a> •
-    <a href="https://github.com/Alan-oliveir/Calendar/fork">🍴 Faça um fork</a> •
-    <a href="https://github.com/Alan-oliveir/Calendar/issues">🐛 Reporte bugs</a>
-  </p>
-  <p><strong>Se este projeto te ajudou, considere dar uma estrela! 🌟</strong></p>
-</div>
+### Agradecimentos
+Ao professor **Manuel Villas Boas Junior** pelas aulas ministradas na disciplina *Software para smartphone*.
+
+### Aluno
+Desenvolvido por **Alan de O. Gonçalves** como trabalho final da disciplina *Software para Smartphone*.
+
+[![Github](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Alan-oliveir)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/alan-ogoncalves)
