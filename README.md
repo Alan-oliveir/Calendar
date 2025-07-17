@@ -42,8 +42,6 @@ Este é um aplicativo de calendário pessoal multiplataforma que permite organiz
 <div align="center">
   <img src="https://github.com/Alan-oliveir/Calendar/blob/master/Screenshots/screenshot_calendario.jpg" alt="Calendário" width="320"/>
   &nbsp;
-  <img src="https://github.com/Alan-oliveir/Calendar/blob/master/Screenshots/screenshot_anota%C3%A7%C3%B5es.jpg" alt="Anotações" width="320"/>
-  &nbsp;
   <img src="https://github.com/Alan-oliveir/Calendar/blob/master/Screenshots/screenshot_tarefa.jpg" alt="Tarefas" width="320"/>
 </div>
 
